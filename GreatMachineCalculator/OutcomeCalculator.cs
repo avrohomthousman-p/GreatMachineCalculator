@@ -1,4 +1,6 @@
-﻿namespace GreatMachineCalculator
+﻿using System;
+
+namespace GreatMachineCalculator
 {
     /// <summary>
     /// These represent each of the cards in the movement deck for
@@ -46,9 +48,10 @@
     public static class OutcomeCalculator
     {
 
-        public static double CalculateProbibilityOfDetainment(List<CARD_TYPES> deck, Dictionary<CARD_TYPES, CARD_STATUS> criteria)
+        public static double CalculateProbibilityOfDetainment(Dictionary<CARD_TYPES, CARD_STATUS> deck)
         {
-            List<CARD_TYPES[]> drawOptions = GetDrawPossibilities(deck);
+            CARD_TYPES[] cardsInDeck = deck.Keys.ToArray();
+            List<CARD_TYPES[]> drawOptions = GetDrawPossibilities(cardsInDeck);
             int detainments = 0;
             foreach (var cardsDrawn in drawOptions)
             {
@@ -67,12 +70,7 @@
                 {
                     var currentCard = cardsDrawn[i];
 
-                    //Get the status of the current card, default=SAFE
-                    CARD_STATUS cardStatus;
-                    if (!criteria.TryGetValue(currentCard, out cardStatus))
-                        cardStatus = CARD_STATUS.SAFE;
-
-                    if (TriggersDetainment(cardStatus, i + 1))
+                    if (TriggersDetainment(deck[currentCard], i + 1))
                     {
                         return true;
                     }
@@ -113,27 +111,27 @@
 
 
         /// <summary>
-        /// Given a list of cards that are still in the deck, generates all possible draws that 
+        /// Given an array of cards that are still in the deck, generates all possible draws that 
         /// can happen.
         /// </summary>
         /// <param name="deck"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static List<CARD_TYPES[]> GetDrawPossibilities(List<CARD_TYPES> deck)
+        public static List<CARD_TYPES[]> GetDrawPossibilities(CARD_TYPES[] deck)
         {
-            if (deck.Count < 4)
+            if (deck.Length < 4)
                 throw new ArgumentException("There cannot be fewer than 4 cards in the deck. Did you forget to shuffle?");
 
 
             List<CARD_TYPES[]> posibilities = new List<CARD_TYPES[]>();
 
-            for (int i = 0; i < deck.Count(); i++)
+            for (int i = 0; i < deck.Length; i++)
             {
-                for (int j = 0; j < deck.Count(); j++)
+                for (int j = 0; j < deck.Length; j++)
                 {
                     if (i == j)
                         continue;
 
-                    for (int k = 0; k < deck.Count(); k++)
+                    for (int k = 0; k < deck.Length; k++)
                     {
                         if (k == i || k == j)
                             continue;
@@ -148,24 +146,32 @@
         }
 
 
-        public static List<CARD_TYPES> GetFullDeck(bool includeMaintenenceCards = true)
+        /// <summary>
+        /// Utility to create a deck containing all the appropriate cards for a full deck.
+        /// All cards have the default status of SAFE.
+        /// </summary>
+        /// <param name="includeMaintenenceCards"></param>
+        /// <returns></returns>
+        public static Dictionary<CARD_TYPES, CARD_STATUS> GetFullDeck(bool includeMaintenenceCards = true)
         {
-            CARD_TYPES[] allCardsAsArray = (CARD_TYPES[])Enum.GetValues(typeof(CARD_TYPES));
-            List<CARD_TYPES> allCards = new List<CARD_TYPES>(allCardsAsArray);
+            Dictionary<CARD_TYPES, CARD_STATUS> fullDeck = new Dictionary<CARD_TYPES, CARD_STATUS>();
 
-            if (!includeMaintenenceCards)
-            {
-                var excludedCards = new List<CARD_TYPES>
+            CARD_TYPES[] maintenenceCards = new CARD_TYPES[] 
             {
                 CARD_TYPES.MAINTENENCE_1,
-                CARD_TYPES.MAINTENENCE_2,
-                CARD_TYPES.MAINTENENCE_3,
+                CARD_TYPES.MAINTENENCE_2, 
+                CARD_TYPES.MAINTENENCE_3
             };
 
-                allCards = allCards.Where(card => !excludedCards.Contains(card)).ToList();
+            foreach (CARD_TYPES cardType in Enum.GetValues(typeof(CARD_TYPES)))
+            {
+                if (!includeMaintenenceCards && maintenenceCards.Contains(cardType))
+                    continue;
+
+                fullDeck[cardType] = CARD_STATUS.SAFE;
             }
 
-            return allCards;
+            return fullDeck;
         }
     }
 
