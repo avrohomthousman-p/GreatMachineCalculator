@@ -26,18 +26,51 @@ namespace GreatMachineCalculator
 
 
     /// <summary>
-    /// Used to specify which servent drawing a certain card will cause detainment
+    /// Stores the number of detentions that drawing a specific card will cause.
     /// </summary>
-    public enum CARD_STATUS
+    public class CardEffects
     {
-        SAFE,
-        DANGER_SERVENT_1,
-        DANGER_SERVENT_2,
-        DANGER_SERVENT_3,
-        DANGER_SERVENT_1_2,
-        DANGER_SERVENT_1_3,
-        DANGER_SERVENT_2_3,
-        DANGER_ALL
+        readonly int servent1Detainments;
+        readonly int servent2Detainments;
+        readonly int servent3Detainments;
+
+
+        public CardEffects()
+        {
+            this.servent1Detainments = 0;
+            this.servent2Detainments = 0;
+            this.servent3Detainments = 0;
+        }
+
+        public CardEffects(int servent1Detainments, int servent2Detainments, int servent3Detainments)
+        {
+            this.servent1Detainments = servent1Detainments;
+            this.servent2Detainments = servent2Detainments;
+            this.servent3Detainments = servent3Detainments;
+        }
+
+
+        public int TotalDetainments()
+        {
+            return servent1Detainments + servent2Detainments + servent3Detainments;
+        }
+
+
+        public int GetDetainmentsByServent(int serventNumber)
+        {
+            switch (serventNumber)
+            {
+                case 1: 
+                    return servent1Detainments;
+                case 2:
+                    return servent2Detainments;
+                case 3:
+                    return servent3Detainments;
+                default:
+                    throw new ArgumentException($"There is no servent {serventNumber}. All servents are numbered 1-3.");
+            }
+        }
+
     }
 
 
@@ -48,74 +81,99 @@ namespace GreatMachineCalculator
     public static class OutcomeCalculator
     {
 
-        public static double CalculateProbibilityOfDetainment(Dictionary<CARD_TYPES, CARD_STATUS> deck)
+        /// <summary>
+        /// Given a deck of cards and the results that each card would produce if drawn,
+        /// this function generates and returns a breakdown of all the possible results 
+        /// and thier liklyhood.
+        /// 
+        /// The data is formatted as an array of doubles with a length of 10, such that
+        /// array[i] = (percent chance that there are i detainments)
+        /// </summary>
+        public static double[] CalculateProbibilityOfOutcome(Dictionary<CARD_TYPES, CardEffects> deck)
+        {
+            List<int> detainmentCounts = GetNumberOfDetainmentsPerPossibility(deck);
+
+            //Map the number of detainments to the number of possibilities that result in
+            //that number of detainments.
+            Dictionary<int, int> detainmentsToPossibilities = new Dictionary<int, int>();
+            foreach (int item in detainmentCounts)
+            {
+                if (detainmentsToPossibilities.ContainsKey(item))
+                { 
+                    detainmentsToPossibilities[item]++;
+                }
+                else
+                {
+                    detainmentsToPossibilities[item] = 1;
+                }
+            }
+
+            //Now copy the results to an output array that has 0's where there are no possibilities
+            double[] output = new double[10];
+
+            for(int i = 0; i < output.Length; i++)
+            {
+                if (detainmentsToPossibilities.ContainsKey(i))
+                {
+                    output[i] = (detainmentsToPossibilities[i] / (double)detainmentCounts.Count()) * 100;
+                }
+            }
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// Given a deck of cards and the results that each card would produce if drawn,
+        /// this function generates and returns a list of the number of detainments
+        /// that would be caused for each possible set of cards drawn.
+        /// 
+        /// E.g: the return of [0, 0, 1, 2] means there are a total of 4 possible ways
+        /// the cards can be drawn. Two of them result in 0 detainments, one results
+        /// in 1 detainment and one results in 2 detainments.
+        /// 
+        /// No gaurentee is made about the order the results are returned in, and the 
+        /// results include only the number of detainments, but not the cards drawn 
+        /// that led to that result.
+        /// </summary>
+        public static List<int> GetNumberOfDetainmentsPerPossibility(Dictionary<CARD_TYPES, CardEffects> deck)
         {
             CARD_TYPES[] cardsInDeck = deck.Keys.ToArray();
             List<CARD_TYPES[]> drawOptions = GetDrawPossibilities(cardsInDeck);
-            int detainments = 0;
+            List<int> detainments = new List<int>();
+
             foreach (var cardsDrawn in drawOptions)
             {
-                if (IsDetained(cardsDrawn))
-                {
-                    detainments++;
-                }
+                detainments.Add(NumberOfDetainments(cardsDrawn));
             }
 
-            return (detainments / (double)drawOptions.Count()) * 100;
+            return detainments;
 
 
-            bool IsDetained(CARD_TYPES[] cardsDrawn)
+            int NumberOfDetainments(CARD_TYPES[] cardsDrawn)
             {
+                if (cardsDrawn.Length != 3)
+                    throw new ArgumentException("Only 3 cards can be drawn");
+
+                int numDetainments = 0;
                 for (int i = 0; i < cardsDrawn.Length; i++)
                 {
                     var currentCard = cardsDrawn[i];
+                    var cardEffects = deck[currentCard];
 
-                    if (TriggersDetainment(deck[currentCard], i + 1))
-                    {
-                        return true;
-                    }
+                    numDetainments += cardEffects.GetDetainmentsByServent(i + 1);
                 }
 
-                return false;
+                return numDetainments;
             }
         }
 
-
-        public static bool TriggersDetainment(CARD_STATUS status, int serventNumber)
-        {
-            if (status == CARD_STATUS.SAFE)
-                return false;
-            if (status == CARD_STATUS.DANGER_ALL)
-                return true;
-
-            switch (serventNumber)
-            {
-                case 1:
-                    return status == CARD_STATUS.DANGER_SERVENT_1
-                            || status == CARD_STATUS.DANGER_SERVENT_1_2
-                            || status == CARD_STATUS.DANGER_SERVENT_1_3;
-                case 2:
-                    return status == CARD_STATUS.DANGER_SERVENT_2
-                            || status == CARD_STATUS.DANGER_SERVENT_1_2
-                            || status == CARD_STATUS.DANGER_SERVENT_2_3;
-
-                case 3:
-                    return status == CARD_STATUS.DANGER_SERVENT_3
-                            || status == CARD_STATUS.DANGER_SERVENT_1_3
-                            || status == CARD_STATUS.DANGER_SERVENT_2_3;
-
-                default:
-                    throw new ArgumentException("There are only 3 servents");
-            }
-        }
 
 
         /// <summary>
         /// Given an array of cards that are still in the deck, generates all possible draws that 
         /// can happen.
         /// </summary>
-        /// <param name="deck"></param>
-        /// <exception cref="ArgumentException"></exception>
         public static List<CARD_TYPES[]> GetDrawPossibilities(CARD_TYPES[] deck)
         {
             if (deck.Length < 4)
@@ -148,13 +206,11 @@ namespace GreatMachineCalculator
 
         /// <summary>
         /// Utility to create a deck containing all the appropriate cards for a full deck.
-        /// All cards have the default status of SAFE.
+        /// All cards are set to not cause any detainments.
         /// </summary>
-        /// <param name="includeMaintenenceCards"></param>
-        /// <returns></returns>
-        public static Dictionary<CARD_TYPES, CARD_STATUS> GetFullDeck(bool includeMaintenenceCards = true)
+        public static Dictionary<CARD_TYPES, CardEffects> GetFullDeck(bool includeMaintenenceCards = true)
         {
-            Dictionary<CARD_TYPES, CARD_STATUS> fullDeck = new Dictionary<CARD_TYPES, CARD_STATUS>();
+            Dictionary<CARD_TYPES, CardEffects> fullDeck = new Dictionary<CARD_TYPES, CardEffects>();
 
             CARD_TYPES[] maintenenceCards = new CARD_TYPES[] 
             {
@@ -168,12 +224,11 @@ namespace GreatMachineCalculator
                 if (!includeMaintenenceCards && maintenenceCards.Contains(cardType))
                     continue;
 
-                fullDeck[cardType] = CARD_STATUS.SAFE;
+                fullDeck[cardType] = new CardEffects(0, 0, 0);
             }
 
             return fullDeck;
         }
     }
-
 
 }

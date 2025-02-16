@@ -6,14 +6,17 @@ namespace TestingApp
     {
         static void Main(string[] args)
         {
-            Dictionary<CARD_TYPES, CARD_STATUS> deck = new Dictionary<CARD_TYPES, CARD_STATUS>();
-            deck[CARD_TYPES.MOVE_LEFT] = CARD_STATUS.DANGER_SERVENT_1;
-            deck[CARD_TYPES.STAY_STILL] = CARD_STATUS.SAFE;
-            deck[CARD_TYPES.ROSE] = CARD_STATUS.DANGER_SERVENT_1;
-            deck[CARD_TYPES.MAINTENENCE_1] = CARD_STATUS.SAFE;
+            Dictionary<CARD_TYPES, CardEffects> deck = new Dictionary<CARD_TYPES, CardEffects>();
+            deck[CARD_TYPES.MOVE_LEFT] = new CardEffects(1, 1, 0);
+            deck[CARD_TYPES.STAY_STILL] = new CardEffects(0, 0, 0);
+            deck[CARD_TYPES.ROSE] = new CardEffects(0, 0, 0);
+            deck[CARD_TYPES.MAINTENENCE_1] = new CardEffects(0, 0, 0);
 
-            double prob = OutcomeCalculator.CalculateProbibilityOfDetainment(deck);
-            Console.WriteLine("there is a %" + prob + " chance of detainment");
+            double[] results = OutcomeCalculator.CalculateProbibilityOfOutcome(deck);
+            for (int i = 0; i < results.Length; i++)
+            {
+                Console.WriteLine($"%{results[i]} change of there bieng {i} detainments");
+            }
 
         }
     }
