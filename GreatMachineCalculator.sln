@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreatMachineCalculator", "GreatMachineCalculator\GreatMachineCalculator.csproj", "{65B89BD0-E45A-4301-BB44-CF20C4C6218C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatMachineCalculator", "GreatMachineCalculator\GreatMachineCalculator.csproj", "{65B89BD0-E45A-4301-BB44-CF20C4C6218C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingApp", "TestingApp\TestingApp.csproj", "{18634843-410F-469E-870B-3A3B74E3694C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingApp", "TestingApp\TestingApp.csproj", "{18634843-410F-469E-870B-3A3B74E3694C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

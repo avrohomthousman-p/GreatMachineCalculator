@@ -80,6 +80,19 @@ namespace GreatMachineCalculator
     /// </summary>
     public static class OutcomeCalculator
     {
+        private static int _roundTo = 2;
+        public static int roundTo {
+            get { return _roundTo; } 
+            set 
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Rounding to whole numbers is not supported.");
+                }
+
+                _roundTo = value;
+            }
+        }
 
         /// <summary>
         /// Given a deck of cards and the results that each card would produce if drawn,
@@ -116,6 +129,7 @@ namespace GreatMachineCalculator
                 if (detainmentsToPossibilities.ContainsKey(i))
                 {
                     output[i] = (detainmentsToPossibilities[i] / (double)detainmentCounts.Count()) * 100;
+                    output[i] = Math.Round(output[i], roundTo);
                 }
             }
 

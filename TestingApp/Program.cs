@@ -11,6 +11,9 @@ namespace TestingApp
             deck[CARD_TYPES.STAY_STILL] = new CardEffects(0, 0, 0);
             deck[CARD_TYPES.ROSE] = new CardEffects(0, 0, 0);
             deck[CARD_TYPES.MAINTENENCE_1] = new CardEffects(0, 0, 0);
+            deck[CARD_TYPES.BIRD] = new CardEffects(0, 0, 0);
+            deck[CARD_TYPES.CENTRAL_SQUARE] = new CardEffects(1, 1, 2);
+            deck[CARD_TYPES.GOGGLES] = new CardEffects(0, 0, 0);
 
             double[] results = OutcomeCalculator.CalculateProbibilityOfOutcome(deck);
             for (int i = 0; i < results.Length; i++)
