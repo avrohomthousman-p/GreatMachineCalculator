@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MovePlanner</string>
+	<string name="fab_text">Get Started</string>
+	<string name="info">
+		This app will help you play the Solo and Cooprative version of City of The Great Machine. 
+		We will tell you the probobility of detainment for the plan you want to do. Be prepared to enter which cards 
+		are currently in the movement deck, as well as how many detainments each card will cause when drawn by each 
+		servent. When you are ready, click the button below.
+	</string>
+</resources>
