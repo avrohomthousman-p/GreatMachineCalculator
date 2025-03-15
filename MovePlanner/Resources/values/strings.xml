@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Move Planner</string>
-    <string name="app_text">Hello, Android!</string>
+	
+    <string name="app_description">
+		This is a helper app for City of The Great Machine S&amp;C mode. Once you have planned your next move, you
+		can use this app to find out the probobility of detainment for your plan. Be prepared to enter the cards
+		currently in the movement deck, along with the number of detainments each card will cause when drawn by 
+		each servent. Click the button below to proceed.
+	</string>
+	
+	<string name="get_started_btn">Get Started</string>
 </resources>
