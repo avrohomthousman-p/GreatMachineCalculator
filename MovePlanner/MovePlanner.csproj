@@ -8,7 +8,15 @@
     <ApplicationId>com.personal.MovePlanner</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\values\colors.xml" />
+    <None Remove="Resources\values\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreatMachineCalculator\GreatMachineCalculator.csproj" />
   </ItemGroup>
