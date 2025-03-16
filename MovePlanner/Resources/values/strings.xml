@@ -11,4 +11,19 @@
 	<string name="get_started_btn">Get Started</string>
 
 	<string name="deck_contents_activity_title">Deck Contents</string>
+
+
+	<string name="delete_btn_description">delete button</string>
+
+	<string name="stay_and_make_gaurd_card_description">stay still and make gaurd card</string>
+	<string name="stay_still_card_description">stay still card</string>
+	<string name="move_down_card_description">move down card</string>
+	<string name="move_left_card_description">move left card</string>
+	<string name="move_up_card_description">move up card</string>
+	<string name="move_right_card_description">move right card</string>
+	<string name="central_square_card_description">central square card</string>
+	<string name="bird_card_description">bird card</string>
+	<string name="goggles_card_description">goggles card</string>
+	<string name="rose_card_description">rose card</string>
+	<string name="maintenence_card_description">maintenence card</string>
 </resources>

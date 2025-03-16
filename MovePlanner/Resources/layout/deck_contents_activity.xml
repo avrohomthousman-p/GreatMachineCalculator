@@ -1,87 +1,336 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/outerLinerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <!-- TODO: replace this sample data with card pics -->
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 1" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/card_count_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="13 Cards in the deck"
+            android:textSize="20dp"/>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/textView3"
+            <ImageView
+                android:id="@+id/stayAndMakeGaurdCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/stay_and_make_gaurd"
+                android:contentDescription="@string/stay_and_make_gaurd_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/stayStillCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/stay_still"
+                android:contentDescription="@string/stay_still_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView4"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/moveDownCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/move_down"
+                android:contentDescription="@string/move_down_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView5"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/moveLeftCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/move_left"
+                android:contentDescription="@string/move_left_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView6"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/moveUpCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/move_up"
+                android:contentDescription="@string/move_up_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView7"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/moveRightCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/move_right"
+                android:contentDescription="@string/move_right_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView8"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:text="Item 2" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/centralSquareCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/central_square"
+                android:contentDescription="@string/central_square_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/birdCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/bird"
+                android:contentDescription="@string/bird_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/gogglesCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/goggles"
+                android:contentDescription="@string/goggles_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/roseCardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/rose"
+                android:contentDescription="@string/rose_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/maintenence1CardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/maintenence"
+                android:contentDescription="@string/maintenence_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/maintenence2CardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/maintenence"
+                android:contentDescription="@string/maintenence_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/maintenence3CardImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/maintenence"
+                android:contentDescription="@string/maintenence_card_description"
+            />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/delete_icon"
+                android:contentDescription="@string/delete_btn_description"
+            />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
