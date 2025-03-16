@@ -1,3 +1,5 @@
+using Android.Content;
+
 namespace MovePlanner
 {
     [Activity(Label = "@string/app_name", MainLauncher = true)]
@@ -7,8 +9,15 @@ namespace MovePlanner
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+
+            Button getStartedBtn = FindViewById<Button>(Resource.Id.get_started_btn);
+            getStartedBtn.Click += (sender, e) =>
+            {
+                Intent intent = new Intent(this, typeof(DeckContentsActivity));
+                StartActivity(intent);
+            };
         }
     }
 }

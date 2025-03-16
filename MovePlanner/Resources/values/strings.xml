@@ -9,4 +9,6 @@
 	</string>
 	
 	<string name="get_started_btn">Get Started</string>
+
+	<string name="deck_contents_activity_title">Deck Contents</string>
 </resources>
